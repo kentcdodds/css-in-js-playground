@@ -39,6 +39,17 @@ export default code => {
     return import('radium').then(exposeExports('Radium'));
   } else if (matches('styletron-react')) {
     return import('styletron-react').then(exposeExports('styletron'));
+  } else if (matches('jss')) {
+    return Promise.all([
+      import('jss'),
+      import('jss-preset-default'),
+      import('jss-extend')
+    ])
+      .then(([jss, preset, extend]) => ({
+        jss: (jss as any).default,
+        preset: preset.default,
+        extend: (extend as any).default
+      }));
   }
   return Promise.resolve({});
 };
