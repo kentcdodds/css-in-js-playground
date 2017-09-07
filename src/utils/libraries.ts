@@ -44,12 +44,15 @@ export default code => {
       import('jss'),
       import('jss-preset-default'),
       import('jss-extend')
-    ])
-      .then(([jss, preset, extend]) => ({
-        jss: (jss as any).default,
-        preset: preset.default,
-        extend: (extend as any).default
-      }));
+    ]).then(([jss, preset, extend]) => ({
+      jss: (jss as any).default,
+      preset: preset.default,
+      extend: (extend as any).default
+    }));
+  } else if (matches('styled-jss')) {
+    return import('styled-jss').then(({ default: styled }) => ({
+      styled
+    }));
   }
   return Promise.resolve({});
 };
